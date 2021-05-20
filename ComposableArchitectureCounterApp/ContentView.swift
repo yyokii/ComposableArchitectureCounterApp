@@ -30,17 +30,17 @@ struct AppEnvironment {}
 // MARK: Reducer
 
 let appReducer = Reducer<AppState, AppAction, AppEnvironment> { state, action, environment in
-  switch action {
-  case .countDown:
-    state.count -= 1
-    return .none
-  case .countUp:
-    state.count += 1
-    return .none
-  case .resetCount:
-    state.count = 0
-    return .none
-  }
+    switch action {
+    case .countDown:
+        state.count -= 1
+        return .none
+    case .countUp:
+        state.count += 1
+        return .none
+    case .resetCount:
+        state.count = 0
+        return .none
+    }
 }
 
 // MARK: View
