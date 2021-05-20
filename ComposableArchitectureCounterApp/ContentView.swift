@@ -47,35 +47,37 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment> { state, action, e
 
 struct ContentView: View {
     
-    @State var count: Int = 0
+    let store: Store<AppState, AppAction>
     
     var body: some View {
         
-        VStack {
-            Text("\(count)")
-                .font(.largeTitle)
-            
-            HStack {
-                Button(action: {
-                    count -= 1
-                }) {
-                    Text("➖")
-                        .padding()
+        WithViewStore(store) { (viewStore: ViewStore<AppState, AppAction>) in
+            VStack {
+                Text("\(viewStore.count)")
+                    .font(.largeTitle)
+                
+                HStack {
+                    Button(action: {
+                        viewStore.send(.countDown)
+                    }) {
+                        Text("➖")
+                            .padding()
+                    }
+                    
+                    Button(action: {
+                        viewStore.send(.countUp)
+                    }) {
+                        Text("➕")
+                            .padding()
+                    }
                 }
                 
                 Button(action: {
-                    count += 1
+                    viewStore.send(.resetCount)
                 }) {
-                    Text("➕")
-                        .padding()
+                    Text("🗑")
+                        .padding(.top, 50)
                 }
-            }
-            
-            Button(action: {
-                count = 0
-            }) {
-                Text("🗑")
-                    .padding(.top, 50)
             }
         }
     }
@@ -83,6 +85,12 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(
+            store: Store(
+                initialState: AppState(count: 0),
+                reducer: appReducer,
+                environment: AppEnvironment()
+            )
+        )
     }
 }
