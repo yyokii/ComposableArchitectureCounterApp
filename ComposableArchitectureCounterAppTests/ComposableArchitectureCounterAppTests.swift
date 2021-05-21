@@ -5,29 +5,51 @@
 //  Created by Higashihara Yoki on 2021/05/21.
 //
 
+import ComposableArchitecture
 import XCTest
 @testable import ComposableArchitectureCounterApp
 
 class ComposableArchitectureCounterAppTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    func testCountUp() {
+        let store = TestStore(
+            initialState: AppState(count: 0),
+            reducer: appReducer,
+            environment: AppEnvironment()
+        )
+        
+        store.assert(
+            .send(.countUp) {
+                $0.count = 1
+            }
+        )
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testCountDown() {
+        let store = TestStore(
+            initialState: AppState(count: 0),
+            reducer: appReducer,
+            environment: AppEnvironment()
+        )
+        
+        store.assert(
+            .send(.countDown) {
+                $0.count = -1
+            }
+        )
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testCountReset() {
+        let store = TestStore(
+            initialState: AppState(count: 10),
+            reducer: appReducer,
+            environment: AppEnvironment()
+        )
+        
+        store.assert(
+            .send(.resetCount) {
+                $0.count = 0
+            }
+        )
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
