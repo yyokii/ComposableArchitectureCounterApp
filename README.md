@@ -10,7 +10,7 @@ Simple Counter App Using The Composable Architecture.
 
 This project is licensed under the MIT License - see the [LICENSE.md](https://gist.github.com/PurpleBooth/LICENSE.md) file for details
 
-## Acknowledgments
+## References
 
 - [Composable Architecture › A Tour of the Composable Architecture](https://www.pointfree.co/collections/composable-architecture/a-tour-of-the-composable-architecture)
 
